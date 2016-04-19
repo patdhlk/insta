@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:s="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/admintemplate.xhtml">
+	
+		<ui:define name="title">Show all photos of user</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+				<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{ adminphotos.initUser()}" type="preRenderView" />
+			</f:metadata>
+			
+			<!-- BEGIN PAGE TITLE -->
+					<div class="page-head">
+						<!-- BEGIN PAGE TITLE -->
+						<div class="page-title">
+							<h1>
+								<h:outputText value="All photos of #{ adminphotos.userEmailToShow}"/>
+							</h1>
+							<h:messages />
+						</div>
+					</div>
+					<!-- END PAGE TITLE -->
+			
+					<div class="table-responsive">
+						<h:dataTable var="entry" value="#{adminphotos.getAllPhotos()}"
+						rendered="#{adminphotos.getAllPhotos().size() > 0}">
+							<h:column>
+								<div>
+									<div class="portlet">
+										<div class="portlet-title">
+											<div class="caption">
+												<!--<h:outputText value="#{entry.getId()}" /> -->
+											</div>
+										</div>
+										<div class="portlet-body">
+											<h:graphicImage class="postedimage" value="#{ adminphotos.getPath(entry.getId()) }" />
+											<br/>
+											<h:outputText value="#{entry.description}" />
+											<h:form>
+												<h:commandLink action="#{adminphotos.remove(entry.getId())}" class="btn btn-icon-only btn-circle red">
+													<i class="fa fa-trash-o"></i>
+												</h:commandLink>
+											</h:form>
+										</div>
+									</div>
+								</div>
+							</h:column>
+						</h:dataTable>
+						<h:outputText value="No photos" rendered="#{adminphotos.getAllPhotos().size() == 0}" />
+					</div>
+				<div class="back-button">
+					<!-- BEGIN BACK BUTTON -->
+					<h:link class="btn btn-default blue" outcome="/admin/index" value="Back" />
+					<!-- END BACK BUTTON -->
+				</div>
+			</div>
+			</div>
+
+		</ui:define>		
+	</ui:composition>
+</html>

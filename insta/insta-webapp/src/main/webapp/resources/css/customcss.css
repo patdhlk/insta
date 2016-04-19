@@ -1,0 +1,30 @@
+/*************************************************
+ CSS TO ADD CUSTOM CHANGES ITS MORE OVERSEEABLE
+*************************************************/
+
+.postedimage {
+    max-width:500px;
+    max-height:700px;
+}
+
+.avatarimage {
+	width:40px;
+    max-width:40px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}

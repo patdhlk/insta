@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <!-- PROJECT INFORMATION -->
+  <parent>
+    <groupId>org.dhbw</groupId>
+    <artifactId>insta</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>insta-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>Insta WebApp</name>
+  <description>Example Java Enterprise Application WebApp (JSF/JAX-RS Frontend)</description>
+  
+  <!-- DEPENDENCIES -->
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>insta-services</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+	</dependencies>
+  
+  
+  <!-- BUILD -->
+  <build>
+		<plugins>
+			<plugin> <!-- maven-war-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+							</manifest>
+						</archive>
+						<webResources>
+							<resource>
+								<filtering>true</filtering>
+								<directory>src/main/webapp</directory>
+								<includes>
+									<include>**/web.xml</include>
+								</includes>
+							</resource>
+						</webResources>
+					</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  
+</project>

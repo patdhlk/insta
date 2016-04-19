@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- PROJECT INFORMATION -->
+	<parent>
+		<groupId>org.dhbw</groupId>
+		<artifactId>insta</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>insta-app</artifactId>
+	<packaging>ear</packaging>
+	<name>Insta Application</name>
+	<description>Instagram Clone Application</description>
+
+	<!-- DEPENDENCIES -->
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>insta-services</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>insta-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+
+	<!-- BUILD -->
+	<build>
+		<plugins>
+			<plugin> <!-- maven-ear-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<finalName>insta-app</finalName>
+					<generateModuleId>true</generateModuleId>
+					<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+					<skinnyWars>true</skinnyWars>
+					<modules>
+						<ejbModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>insta-services</artifactId>
+						</ejbModule>
+						<webModule>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>insta-webapp</artifactId>
+							<contextRoot>/insta</contextRoot>
+						</webModule>
+					</modules>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

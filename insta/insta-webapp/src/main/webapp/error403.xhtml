@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      
+      <ui:composition template="/templates/loginTemplate.xhtml">
+      
+      	<ui:define name="title">403 Error</ui:define>
+    
+    	<ui:define name="content">
+    		<div class="content">
+    		<p>
+    			<h:outputText value="You are not allowed to access this area. Logout first to get a login screen." />
+    		</p>
+    		<p>
+	       		<h:link outcome="index">Back to start page</h:link>
+	        </p>
+	        </div>
+        </ui:define>		
+	</ui:composition>
+</html>
+

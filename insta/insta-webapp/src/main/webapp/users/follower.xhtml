@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">Follower</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+				<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{users.initUser()}" type="preRenderView" />
+			</f:metadata>
+			
+			<!-- BEGIN PAGE TITLE -->
+			<div class="page-head">
+				<!-- BEGIN PAGE TITLE -->
+				<div class="page-title">
+					<h1>
+						<h:outputText value="People you follow:"/>
+					</h1>
+				</div>
+			</div>
+			<!-- END PAGE TITLE -->
+			<div class="table-responsive">
+						<h:dataTable class="table table-striped table-bordered table-advance table-hover" var="entry" value="#{users.getFollower()}"
+									rendered="#{users.getFollower().size() > 0}">
+								<h:column>
+									<f:facet name="header">Firstname</f:facet>
+									<h:outputText value="#{ entry.getFirstName() }" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Lastname</f:facet>
+									<h:outputText value="#{ entry.getLastName() }" />
+								</h:column>
+									
+						</h:dataTable>
+
+			</div>
+			<h:outputText value="You don't follow any insta users" rendered="#{users.getFollower().size() == 0}" />
+			</div>
+			</div>
+		</ui:define>		
+	</ui:composition>
+</html>

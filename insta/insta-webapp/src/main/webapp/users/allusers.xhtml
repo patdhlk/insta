@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">Show all users</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+				<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{allusers.initUser()}" type="preRenderView" />
+			</f:metadata>
+			
+			<!-- BEGIN PAGE TITLE -->
+			<div class="page-head">
+				<!-- BEGIN PAGE TITLE -->
+				<div class="page-title">
+					<h1>
+						All INSTA users
+					</h1>
+				</div>
+			</div>
+			<!-- END PAGE TITLE -->
+			
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="fa fa-instagram"></i>USERS
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<h:dataTable class="table table-striped table-bordered table-advance table-hover" var="entry" value="#{allusers.getAllUsers()}"
+						rendered="#{allusers.getAllUsers().size() > 0}">
+						
+							<h:column>
+								<h:graphicImage class="avatarimage" value="#{ photos.getPath(entry.getProfileImageId()) }" rendered="#{entry.getProfileImageId()!=0}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Firstname</f:facet>
+								<h:outputText value="#{ entry.getFirstName() }" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Lastname</f:facet>
+								<h:outputText value="#{ entry.getLastName() }" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Follow</f:facet>
+								<h:form>
+									<h:commandLink class="btn default btn-xs blue" value="Follow" action="#{allusers.follow(entry.getId())}" rendered="#{!allusers.followes(entry.getId())}" />
+								</h:form>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Unfollow</f:facet>
+								<h:form>
+									<h:commandLink class="btn default btn-xs red-flamingo" value="Unfollow" action="#{allusers.unfollow(entry.getId())}" rendered="#{allusers.followes(entry.getId())}" />
+								</h:form>
+							</h:column>
+							<h:column>
+								<f:facet name="header">Show profile</f:facet>
+								<h:form>
+									<h:commandLink class="btn default btn-xs green" value="Show profile" action="#{showprofile.showProfile(entry.getEMail()) }" />
+								</h:form>
+							</h:column>
+					</h:dataTable>
+					</div>
+				</div>
+			</div>			
+			
+			<h:outputText value="No users" rendered="#{allusers.getAllUsers().size() == 0}" />
+			</div>
+			</div>
+		</ui:define>		
+	</ui:composition>
+</html>

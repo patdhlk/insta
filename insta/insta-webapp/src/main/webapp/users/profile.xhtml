@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">Profile</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+			<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{profile.initUser()}" type="preRenderView" />
+			</f:metadata>
+			
+			<div class="page-head">
+				<!-- BEGIN PAGE TITLE -->
+				<div class="page-title">
+					<h1>Your profile</h1>
+				</div>
+			</div>
+			<!-- END PAGE TITLE -->
+			
+			<div class="row">
+				<h:messages />
+			
+				<div class="col-md-12">
+					
+					<!-- BEGIN PROFILE CONTENT -->
+					<div class="profile-content">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+											</li>
+											<li>
+												<a href="#tab_1_2" data-toggle="tab">See Avatar</a>
+											</li>
+											<li>
+												<a href="#tab_1_3" data-toggle="tab">Change Password</a>
+											</li>
+											<li>
+												<a href="#tab_1_4" data-toggle="tab">Privacy Settings</a>
+											</li>
+										</ul>
+									</div>
+									<div class="portlet-body">
+										<div class="tab-content">
+											<!-- PERSONAL INFO TAB -->
+											<div class="tab-pane active" id="tab_1_1">
+												<h:form role="form" action="#">
+												<div class="form-body">
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">First Name</label>
+														<h:inputText id="user-firstname" class="form-control"  value="#{profile.firstName}" />
+														<span class="help-block">enter your first name</span>
+													</div>
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">Last Name</label>
+														<h:inputText id="user-lastname" class="form-control" value="#{profile.lastName}"/>
+														<span class="help-block">enter your last name</span>
+													</div>
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">Gender</label>
+														<h:selectOneMenu value="#{profile.gender}" class="form-control">
+															<f:selectItem itemValue="Male" itemLabel="Male" />
+														   	<f:selectItem itemValue="Female" itemLabel="Female" />
+														   	<f:selectItem itemValue="Unknown" itemLabel="Unknown" />
+														</h:selectOneMenu>
+													</div>
+													<div class="form-group form-md-line-input">
+														<label class="control-label">E-Mail</label>
+														<h:inputText id="user-email" type="text" p:placeholder="#{profile.eMail}" class="form-control" disabled="true"/>
+													</div>
+													<div class="margiv-top-10">
+														<h:commandLink action="#{profile.submit()}" value="Save Changes" class="btn green-haze" />
+														<h:link outcome="profile" value="Cancel" class="btn default"/>
+													</div>
+													</div>
+												</h:form>
+											</div>
+											<!-- END PERSONAL INFO TAB -->
+											<!-- SEE AVATAR TAB -->
+
+											<div class="tab-pane" id="tab_1_2">
+												<div>
+													<label class="control-label">Actual image. Change image on "Photos" page.</label>
+												</div>
+												<h:outputText value="No profile image selected" rendered="#{profile.getProfileImageId()==0}" />
+												<h:graphicImage class="postedimage" value="#{ photos.getPath(profile.getProfileImageId()) }" rendered="#{profile.getProfileImageId()!=0}" />		
+											</div>
+
+											<!-- END SEE AVATAR TAB -->
+											<!-- CHANGE PASSWORD TAB -->
+											<div class="tab-pane" id="tab_1_3">
+												<h:form>
+												<div class="form-group form-md-line-input">
+													<label class="control-label">Old password</label>
+													<h:inputSecret id="user-password1" value="#{profile.oldPassword}" class="form-control" type="password" autocomplete="off" name="j_password1"/>
+												</div>
+												<div class="form-group form-md-line-input">
+													<label class="control-label">New password</label>
+													<h:inputSecret id="user-password2" value="#{profile.newPassword}" class="form-control" type="password" autocomplete="off" name="j_password2"/>
+												</div>
+												<div class="form-group form-md-line-input">
+													<label class="control-label">Confirm new password</label>
+													<h:inputSecret id="user-password3" value="#{profile.confirmNewPassword}" class="form-control" type="password" autocomplete="off" name="j_password3"/>
+												</div>
+												
+													<div class="margiv-top-10">
+														<h:commandLink action="#{profile.changePassword()}" value="Save Password" class="btn green-haze" />
+														<h:link outcome="profile" value="Cancel" class="btn default"/>
+													</div>
+												</h:form>
+											</div>
+											<!-- END CHANGE PASSWORD TAB -->
+											<!-- PRIVACY SETTINGS TAB -->
+											<div class="tab-pane" id="tab_1_4">
+												<h:form action="#">
+													<!--end profile-settings-->
+													<div class="margin-top-10">
+														
+														<h:commandLink action="#{profile.remove()}" value="Remove Account" class="btn btn-danger" />
+													</div>
+												</h:form>
+											</div>
+											<!-- END PRIVACY SETTINGS TAB -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END PROFILE CONTENT -->
+				</div>
+			</div>
+		</div>
+			</div>
+		</ui:define>	
+	</ui:composition>
+</html>

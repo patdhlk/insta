@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:s="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">Show all photos</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+				<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{ photos.initUser()}" type="preRenderView" />
+			</f:metadata>
+			
+			<!-- BEGIN PAGE TITLE -->
+					<div class="page-head">
+						<!-- BEGIN PAGE TITLE -->
+						<div class="page-title">
+							<h1>
+								<h:outputText value="All your photos"/>
+							</h1>
+							<h:messages />
+						</div>			
+					</div>
+					<!-- END PAGE TITLE -->
+			
+					<div class="table-responsive">
+						<h:dataTable var="entry" value="#{photos.getAllPhotos()}"
+						rendered="#{photos.getAllPhotos().size() > 0}">
+							<h:column>
+								<div>
+									<div class="portlet">
+										<div class="portlet-title">
+											<div class="caption">
+												<!--<h:outputText value="#{entry.getId()}" /> -->
+											</div>
+										</div>
+										<div class="portlet-body">
+											<h:graphicImage class="postedimage" value="#{ photos.getPath(entry.getId()) }" />
+											<br/>
+											<h:outputText value="#{entry.description}" />
+											<h:form>
+												<h:commandLink action="#{photos.remove(entry.getId())}" class="btn btn-icon-only btn-circle red">
+													<i class="fa fa-trash-o"></i>
+												</h:commandLink>
+												<h:commandLink action="#{photos.setProfileImageId(entry.getId())}" title="Set as profile picture" class="btn btn-icon-only btn-circle blue">
+													<i class="fa fa-user"></i>
+												</h:commandLink>
+												<a class="btn btn-icon-only btn-circle green" title="update description" data-toggle="modal" href="##{entry.getId()}">
+													<i class="fa fa-refresh"></i> 
+												</a>
+											</h:form>
+										</div>
+										<div id="#{entry.getId()}" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+											<div class="modal-dialog">
+												<div class="modal-content">
+												<h:form>
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+														<h4 class="modal-title">Change your image description</h4>
+													</div>
+													<div class="modal-body">
+														<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="scroller" style="height: 300px; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
+															<div class="row">
+																<div class="col-md-6">
+																	<h4>Description</h4>
+																	<p>
+																		<h:inputText value="#{photos.photoDescription}" class="form-control"/>
+																	</p>
+																</div>
+															</div>
+														</div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 300px; background: rgb(187, 187, 187);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" data-dismiss="modal" class="btn default">Close</button>
+														<h:commandLink action="#{photos.edit(entry.getId())}" value="Save Changes" class="btn green" />
+													</div>
+													</h:form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</h:column>
+						</h:dataTable>
+					</div>
+			<h:outputText value="No photos" rendered="#{photos.getAllPhotos().size() == 0}" />
+			</div>
+			</div>
+		</ui:define>		
+	</ui:composition>
+</html>

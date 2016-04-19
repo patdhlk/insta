@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">Profile</ui:define>
+		
+		<ui:define name="content">
+		<div class="page-content-wrapper">
+			<div class="page-content">
+			<f:metadata>
+				<f:event listener="#{showprofile.initUser()}" type="preRenderView" />
+			</f:metadata>
+			<div class="page-head">
+				<!-- BEGIN PAGE TITLE -->
+				<div class="page-title">
+					<h1><h:outputText value="Profile from #{showprofile.firstName} #{showprofile.lastName}" /></h1>
+				</div>
+			</div>
+			<!-- END PAGE TITLE -->
+			
+			<div class="row">
+				<div class="col-md-12">
+					
+					<!-- BEGIN PROFILE CONTENT -->
+					<div class="profile-content">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+											</li>
+											<li>
+												<a href="#tab_1_2" data-toggle="tab">See Avatar</a>
+											</li>
+										</ul>
+									</div>
+									<div class="portlet-body">
+										<div class="tab-content">
+											<!-- PERSONAL INFO TAB -->
+											<div class="tab-pane active" id="tab_1_1">
+												<h:form role="form" action="#">
+												<div class="form-body">
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">First Name</label>
+														<h:outputText id="user-firstname" class="form-control"  value="#{showprofile.firstName}" />
+													</div>
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">Last Name</label>
+														<h:outputText id="user-lastname" class="form-control" value="#{showprofile.lastName}" />
+													</div>
+													<div class="form-group form-md-line-input has-info">
+														<label class="control-label">Gender</label>
+														<h:outputText id="user-gender" class="form-control" value="#{showprofile.gender}" />
+													</div>
+													<div class="form-group form-md-line-input">
+														<label class="control-label">E-Mail</label>
+														<h:outputText id="user-email" type="text" value="#{showprofile.eMail}" class="form-control" />
+													</div>
+													</div>
+												</h:form>
+											</div>
+										<!-- END PERSONAL INFO TAB -->
+										<!-- SEE AVATAR TAB -->
+											<div class="tab-pane" id="tab_1_2">
+												<h:outputText value="No profile image selected" rendered="#{showprofile.getProfileImageId()==0}" />
+												<h:graphicImage class="postedimage" value="#{ photos.getPath(showprofile.getProfileImageId()) }" rendered="#{showprofile.getProfileImageId()!=0}" />		
+											</div>
+											<!-- END SEE AVATAR TAB -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- END PROFILE CONTENT -->
+				</div>
+			</div>
+			<div class="back-button">
+				<!-- BEGIN BACK BUTTON -->
+				<h:commandButton class="btn btn-default blue" value="Back" onclick="history.go(-1)">
+				</h:commandButton>
+				<!-- END BACK BUTTON -->
+			</div>
+		</div>
+			</div>
+		</ui:define>	
+	</ui:composition>
+</html>

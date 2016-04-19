@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- PROJECT INFORMATION -->
+	<groupId>org.dhbw</groupId>
+	<artifactId>insta</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Insta</name>
+	<description>Instagram Clone</description>
+
+	<!-- PROPERTIES -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<version.spec.java>1.8</version.spec.java>
+		<version.spec.javaee-api>7.0</version.spec.javaee-api>
+		<version.spec.ejb>3.2</version.spec.ejb>
+
+		<version.slf4j-api>1.7.7</version.slf4j-api>
+		<version.logback>1.1.2</version.logback>
+
+		<version.junit>4.11</version.junit>
+	</properties>
+
+
+	<!-- DEPENDENCIES -->
+	<dependencies>
+		<dependency> <!-- javaee-api -->
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${version.spec.javaee-api}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- UTILITY -->
+		<dependency> <!-- slf4j -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j-api}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency> <!-- logback -->
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${version.logback}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- TESTING -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- BUILD -->
+	<build>
+		<plugins>
+			<plugin> <!-- maven-compiler-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>${version.spec.java}</source>
+					<target>${version.spec.java}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>insta-domain</module>
+		<module>insta-services</module>
+		<module>insta-webapp</module>
+		<module>insta-app</module>
+	</modules>
+</project>

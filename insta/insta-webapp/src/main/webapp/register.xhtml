@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:composition template="/templates/registerTemplate.xhtml">
+	
+		<ui:define name="title">Register</ui:define>
+		
+		<ui:define name="content">
+			<div class="content">
+				<!-- BEGIN LOGIN FORM -->
+				<h:form class="login-form">
+					<div class="form-title">
+						<span class="form-title">Welcome.</span>
+						<span class="form-subtitle">Register here.</span>
+					</div>
+					<div>
+						<h:messages />
+					</div>
+					<div class="form-group">
+						<h:inputText id="user-firstname" value="#{register.firstName}" class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" p:placeholder="Firstname"/>
+					</div>
+					<div class="form-group">
+						<h:inputText id="user-lastname" value="#{register.lastName}" class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" p:placeholder="Lastname" />
+					</div>
+					<div class="form-group">
+						<h:inputText id="user-email" value="#{register.eMail}" class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" p:placeholder="E-Mail" />
+					</div>
+					<div class="form-group">
+						<h:selectOneMenu value="#{register.gender}" class="form-control">
+							<f:selectItem itemValue="Male" itemLabel="Male" />
+						   	<f:selectItem itemValue="Female" itemLabel="Female" />
+						   	<f:selectItem itemValue="Unknown" itemLabel="Unknown" />
+						</h:selectOneMenu>
+					</div>
+					<div class="form-group">
+						<h:inputSecret id="user-password" value="#{register.password}" class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" p:placeholder="Password" name="j_password"/>
+					</div>
+						<div class="form-actions">
+								<h:commandButton value="Register" class="btn btn-primary btn-block uppercase" action="#{register.submit}"></h:commandButton>
+						</div>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<div class="create-account">
+						<p>
+<!-- 							<a href="javascript:;" id="register-btn">Create an account</a> -->
+								<h:link outcome="users/index">You have an account? LOG IN!</h:link>
+						</p>
+					</div>
+				</h:form>
+				<!-- END LOGIN FORM -->
+			</div>
+		</ui:define>	
+	</ui:composition>
+</html>

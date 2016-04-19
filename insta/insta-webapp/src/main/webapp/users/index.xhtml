@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/templates/template.xhtml">
+	
+		<ui:define name="title">
+		
+			<h:outputText value="Timeline" />
+		
+		</ui:define>
+		<ui:define name="content">
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<f:metadata>
+						<f:event listener="#{timeline.initUser()}" type="preRenderView" />
+						
+					</f:metadata>
+					
+					<!-- BEGIN PAGE TITLE -->
+					<div class="page-head">
+						<!-- BEGIN PAGE TITLE -->
+						<div class="page-title">
+							<h1>
+								<h:outputText value="Your timeline #{timeline.getUser().getFirstName()} #{timeline.getUser().getLastName()}"/>
+							</h1>
+						</div>
+					</div>
+					<!-- END PAGE TITLE -->
+					
+					<div class="table-responsive">
+					<h:dataTable var="entry" value="#{timeline.getTimelineElements()}" class="table">
+						<h:column>
+							<div>
+								<div class="portlet">
+									<div class="portlet-title">
+										<div class="caption">
+											
+											<h:form>
+											<h:outputText value="#{entry.getUser().getEMail()}  " />
+												<h:commandLink class="btn default btn-xs blue" value="Open profile" action="#{showprofile.showProfile(entry.getUser().getEMail()) }" />
+											</h:form>
+										</div>
+									</div>
+									<div class="portlet-body">
+										<h:graphicImage class="postedimage" value="#{ photos.getPath(entry.getPhoto().getId()) }" />
+										<br/>
+										<h:panelGroup class="font-grey-cascade">#{entry.getPhoto().getDescription()}</h:panelGroup>
+										<h:form>
+											<h:commandLink action="#{timeline.like(entry.getPhoto())}" class="btn btn-icon-only btn-circle green">
+												<i class="fa fa-thumbs-up"></i>
+											</h:commandLink>
+											<h:panelGroup class="font-grey-cascade"> Liked: #{entry.getLiker().size()}  </h:panelGroup>
+											<h:commandLink action="#{timeline.unlike(entry.getPhoto())}" class="btn btn-icon-only btn-circle red">
+												<i class="fa fa-thumbs-down"></i>
+											</h:commandLink>
+										</h:form>
+									</div>
+									
+								</div>
+							</div>
+						</h:column>
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header">Poster:</f:facet> -->
+<!-- 								<h:outputText value="#{ entry.getUser().getEMail() }" /> -->
+<!-- 							</h:column> -->
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header">Photo</f:facet> -->
+<!-- 								<h:outputText value="#{ entry.getPhoto().getDescription() }" /> -->
+<!-- 							</h:column> -->
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header">Uploaded</f:facet> -->
+<!-- 								<h:outputText value="#{ entry.getPhoto().getLastChanged() }" /> -->
+<!-- 							</h:column> -->
+							
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header">Like:</f:facet> -->
+<!-- 									<h:form> -->
+<!-- 										<h:commandLink class="icon-btn" action="#{timeline.like(entry.getPhoto())}"> -->
+<!-- 											<i class="fa fa-thumbs-up"/> -->
+<!-- 											<div>Like</div> -->
+<!-- 											<h:panelGroup class="badge badge-info" value="#{entry.getLiker().size()}">#{entry.getLiker().size()}</h:panelGroup> -->
+<!-- 										</h:commandLink> -->
+<!-- 									</h:form> -->
+<!-- 							</h:column> -->
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header" class="flip-content">Unlike:</f:facet> -->
+<!-- 									<h:form> -->
+<!-- 										<h:commandLink class="icon-btn" action="#{timeline.unlike(entry.getPhoto())}"> -->
+<!-- 											<i class="fa fa-thumbs-down"/> -->
+<!-- 											<div>Unlike</div> -->
+<!-- 										</h:commandLink> -->
+<!-- 									</h:form> -->
+<!-- 							</h:column> -->
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header" class="flip-content">likers:</f:facet> -->
+<!-- 								<h:outputText value="#{ entry.getLikerAsString() }" /> -->
+<!-- 							</h:column> -->
+<!-- 							<h:column> -->
+<!-- 								<f:facet name="header">Picture</f:facet> -->
+<!-- 								<h:graphicImage value="#{ photos.getPath(entry.getPhoto().getId()) }" /> -->
+<!-- 							</h:column> -->
+					</h:dataTable>
+					</div>
+					<h:form>
+							<h:commandLink class="btn glyphicon glyphicon-home btn-x blue" action="#{timeline.firstPage()}" rendered="#{timeline.getPageInTimeline()!=0}"/>
+							<h:commandLink class="btn glyphicon glyphicon-arrow-left btn-x blue" action="#{timeline.previousPage()}" rendered="#{timeline.previousPageAvailable()}"/>
+							<h:commandLink class="btn glyphicon glyphicon-arrow-right btn-x blue" action="#{timeline.nextPage()}" rendered="#{timeline.nextPageAvailable()}"/>
+					</h:form>
+					
+					</div>
+				
+			</div>
+			
+		</ui:define>
+	
+	</ui:composition>
+</html>
